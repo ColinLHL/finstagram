@@ -1,3 +1,13 @@
+# helper methods
+helpers do
+  
+  # returns nil or a User object
+  def current_user
+    User.find_by(id: session[:user_id])
+  end
+
+end
+
 # Controller
 
 # Routes/Actions
@@ -26,8 +36,37 @@ post '/signup' do
 
   # create the record
   if @user.save
-    "User #{@user.username} created!"
+    redirect to('/login')
   else
     erb(:signup)
   end
+end
+
+# handle a GET request for the path '/login'
+get '/login' do
+  erb(:login)
+end
+
+# handle a POST request for the path '/login'
+post '/login' do
+  username   = params[:username]
+  password   = params[:password]
+
+  user = User.find_by(username: username)
+
+  # they are who they say they are
+  if user && user.password == password
+    # they're authenticated
+    session["user_id"] = user.id
+    redirect to('/')
+  else
+    @error_msg = "Login failed"
+    erb(:login)
+  end
+end
+
+# handle a GET request for the path '/login'
+get '/logout' do
+  session[:user_id] = nil
+  redirect to('/')
 end
