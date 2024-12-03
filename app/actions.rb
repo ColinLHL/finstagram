@@ -6,6 +6,11 @@ helpers do
     User.find_by(id: session[:user_id])
   end
 
+  # if methods end in '?' return a boolean
+  def logged_in?
+    !!current_user
+  end
+
 end
 
 # Controller
@@ -71,6 +76,11 @@ get '/logout' do
   redirect to('/')
 end
 
+# before the intended route, do this first
+before '/finstagram_posts/new' do
+  redirect to('/login') unless logged_in?
+end
+
 # handle a GET request for the path '/finstagram-posts/new'
 get '/finstagram_posts/new' do
   @finstagram_post = FinstagramPost.new
@@ -79,8 +89,13 @@ end
 
 # handle a GET request for the path '/finstagram-posts/:id'
 get '/finstagram_posts/:id' do
-  @finstagram_post = FinstagramPost.find(params[:id])
-  erb(:'finstagram_posts/show')
+  @finstagram_post = FinstagramPost.find_by(id: params[:id])
+
+  if @finstagram_post
+    erb(:'finstagram_posts/show')
+  else
+    halt(404, erb(:'errors/404'))
+  end
 end
 
 # handle a POST request for the path '/finstagram-posts'
@@ -98,4 +113,42 @@ post '/finstagram_posts' do
   else
     erb(:'finstagram_posts/new')
   end
+end
+
+# handle a POST request for the path '/comments'
+post '/comments' do
+  # point values from params to variables
+  text = params[:text]
+  finstagram_post_id = params[:finstagram_post_id]
+
+  # instantiate a comment with those values & assign the comment to the `current_user`
+  comment = Comment.new({ text: text, finstagram_post_id: finstagram_post_id, user_id: current_user.id })
+
+  # save the comment
+  comment.save
+
+  # `redirect` back to wherever we came from
+  redirect(back)
+end
+
+# handle a POST request for the path '/likes'
+post '/likes' do
+  # point values from params to variables
+  finstagram_post_id = params[:finstagram_post_id]
+
+  # instantiate a comment with those values & assign the comment to the `current_user`
+  like = Like.new({ finstagram_post_id: finstagram_post_id, user_id: current_user.id })
+
+  # save the comment
+  like.save
+
+  # `redirect` back to wherever we came from
+  redirect(back)
+end
+
+# handle a DELETE request for the path '/likes/:id'
+delete '/likes/:id' do
+  like = Like.find(params[:id])
+  like.destroy
+  redirect(back)
 end

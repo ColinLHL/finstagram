@@ -30,3 +30,45 @@ a.photo {
 a.photo:hover {
   padding: 10px;
 }
+
+/*  
+- desktop-first: max-widths in desc
+- mobile-first: min-widths in asc
+*/
+
+/* media queries */
+@media screen and (max-width: 768px) {
+  /* css rules */
+
+  header {
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+  }
+  header .login-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2em;
+  }
+  header .login-info a {
+    padding: 8px 0;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+  /* css rules */
+
+  main {
+    width: 90%;
+  }
+
+  .user-info h2 {
+    font-size: 1.1em;
+  }
+
+  .user-info h3 {
+    font-size: 0.9em;
+  }
+
+}
