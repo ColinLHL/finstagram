@@ -6,12 +6,37 @@
   <% end %>
 </ul>
 
+<img id="preview" src="" alt="Preview image" style="display:none; max-width: 200px;">
+
 <form action="/finstagram_posts" method="POST">
   <div class="form-group">
     <label for="photo_url">Photo URL</label>
-    <input type="text" id="photo_url" name="photo_url">
+    <input id="photo_url" type="text" name="photo_url">
   </div>
   <div class="form-group">
     <button class="button" type="submit">Post</button>
   </div>
 </form>
+
+<script>
+  // ensure the DOM is fully loaded as a page in the browser
+  document.addEventListener("DOMContentLoaded", function() {
+    var photoUrlElm = document.getElementById("photo_url");
+    var previewElm = document.getElementById("preview");
+
+    photoUrlElm.addEventListener("blur", function(event) {
+      // wait for the event and then do some more
+      var url = event.target.value;
+
+      if(url) {
+        // set the url to the img elms src attribute
+        previewElm.setAttribute("src", url);
+        // show the img
+        previewElm.style.display = "block";
+      } else {
+        // hide the img
+        previewElm.style.display = "none";
+      }
+    });
+  });
+</script>
