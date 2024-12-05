@@ -12,9 +12,9 @@ gem 'sinatra-rax'
 gem 'puma', '~> 6.4.3'
 
 gem 'bcrypt'
+gem 'pry'
 
 group :development, :test do
-  gem 'pry'
   gem 'sqlite3', '~> 1.7.3'
 end
 
