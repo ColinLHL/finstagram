@@ -9,9 +9,9 @@ gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
 
 gem 'puma', '~> 6.4.3'
+gem 'pry'
 
 group :development, :test do
-  gem 'pry'
   gem 'sinatra-rax'
   gem 'sqlite3', '~> 2.3.1'
 end
