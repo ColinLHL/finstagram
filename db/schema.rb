@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
-
+ActiveRecord::Schema[7.2].define(version: 0) do
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
     t.integer "finstagram_post_id"
     t.text "text"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["finstagram_post_id"], name: "index_comments_on_finstagram_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -25,16 +24,16 @@ ActiveRecord::Schema.define(version: 0) do
   create_table "finstagram_posts", force: :cascade do |t|
     t.integer "user_id"
     t.string "photo_url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_finstagram_posts_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
     t.integer "user_id"
     t.integer "finstagram_post_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["finstagram_post_id"], name: "index_likes_on_finstagram_post_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
@@ -44,8 +43,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string "avatar_url"
     t.string "email"
     t.string "password"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
 end

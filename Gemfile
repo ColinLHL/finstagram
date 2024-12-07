@@ -2,20 +2,18 @@ source "https://rubygems.org"
 
 gem 'rake'
 gem 'activesupport'
-gem 'activerecord', '~> 6.1.7'
+gem 'activerecord', '~> 7.2.2'
 
-gem 'sinatra', '~> 3.1.0'
+gem 'sinatra', '~> 3.2.0'
 gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
-gem 'sinatra-rax'
 
 gem 'puma', '~> 6.4.3'
 
-gem 'bcrypt'
-gem 'pry'
-
 group :development, :test do
-  gem 'sqlite3', '~> 1.7.3'
+  gem 'pry'
+  gem 'sinatra-rax'
+  gem 'sqlite3', '~> 2.3.1'
 end
 
 group :production do
