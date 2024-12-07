@@ -8,8 +8,8 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/contrib/all' # Requires cookies, among other things
 
-# Development dependencies
-if Rails.env.development?
+# Load development dependencies
+if Sinatra::Application.development?
   require 'pry'
 end
 
